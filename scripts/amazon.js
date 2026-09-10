@@ -15,7 +15,7 @@ let productsHTML = '';
             <img class="product-rating-stars"
               src="images/ratings/rating-${product.rating.stars*10}.png">
             <div class="product-rating-count link-primary">
-              ${product.rating.count};
+              ${product.rating.count}
             </div>
           </div>
 
@@ -40,7 +40,7 @@ let productsHTML = '';
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -56,7 +56,7 @@ document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
+        const {productId} = button.dataset;
 
         let matchingItem;
         cart.forEach(item => {
@@ -81,6 +81,9 @@ document.querySelectorAll('.js-add-to-cart').forEach(button => {
         });
         
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-        
+
+        let addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
+        addedElement.classList.add('added-message');
     })
 })
+
