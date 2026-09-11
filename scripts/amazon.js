@@ -54,6 +54,7 @@ let productsHTML = '';
 
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
+let timeoutId;
 document.querySelectorAll('.js-add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
         const {productId} = button.dataset;
@@ -84,6 +85,15 @@ document.querySelectorAll('.js-add-to-cart').forEach(button => {
 
         let addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
         addedElement.classList.add('added-message');
+
+        
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          addedElement.classList.remove('added-message');
+        }, 2000);
+        
+        
+
     })
 })
 
