@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
 let productsHTML = '';
@@ -57,46 +57,34 @@ let productsHTML = '';
 
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
+
+function updateCartQuantity (productId) {
+  let cartQuantity = 0;
+  cart.forEach(item => {
+    cartQuantity += item.quantity;
+  });
+  
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+  let addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
+  addedElement.classList.add('added-message');
+
+  
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    addedElement.classList.remove('added-message');
+  }, 2000);
+}
+
 let timeoutId;
 document.querySelectorAll('.js-add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
         const {productId} = button.dataset;
 
-        let matchingItem;
-        cart.forEach(item => {
-          if(productId === item.productId){
-            matchingItem = item;
-          } 
-        });
+        addToCart(productId);
         
-        let selectQuantity = document.querySelector(`.js-quantity-selector-${productId}`)
-        if (matchingItem){
-          matchingItem.quantity += Number(selectQuantity.value);
-        } else {
-          cart.push({
-            productId,
-            quantity: 1
-          });
-        };
+        updateCartQuantity(productId);
         
-        let cartQuantity = 0;
-        cart.forEach(item => {
-          cartQuantity += item.quantity;
-        });
-        
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
-        let addedElement = document.querySelector(`.js-added-to-cart-${productId}`);
-        addedElement.classList.add('added-message');
-
-        
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          addedElement.classList.remove('added-message');
-        }, 2000);
-        
-        
-
     })
 })
 
