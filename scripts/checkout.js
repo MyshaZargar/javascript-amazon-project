@@ -38,7 +38,7 @@ cart.forEach((cartItem) => {
                   <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingItem.id}">
                     Update
                   </span>
-                  <input class="quantity-input js-quantity-input-${matchingItem.id}">
+                  <input class="quantity-input js-quantity-input-${matchingItem.id}" data-product-id="${matchingItem.id}">
                   <span class="save-quantity-link link-primary js-save-link"  data-product-id="${matchingItem.id}">Save</span>
 
                   <span class="delete-quantity-link link-primary js-delete-link" data-product-id = ${matchingItem.id}>
@@ -108,6 +108,7 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
     });
 });
 
+
 document.querySelectorAll('.js-update-link').forEach(link => {
   link.addEventListener('click', () => {
     const productId = link.dataset.productId;
@@ -116,9 +117,10 @@ document.querySelectorAll('.js-update-link').forEach(link => {
   })
 })
 
-document.querySelectorAll('.js-save-link').forEach(link => {
-  link.addEventListener('click', () => {
-    const productId = link.dataset.productId;
+
+
+function saveQuantity(productId) {
+   
     document.querySelector(`.js-cart-item-${productId}`).classList.remove('is-editing-quantity');
 
     const inputQuantity = document.querySelector(`.js-quantity-input-${productId}`);
@@ -132,6 +134,19 @@ document.querySelectorAll('.js-save-link').forEach(link => {
     document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity;
     document.querySelector('.js-cart-quantity').innerHTML = newQuantity;
     updateCartQuantity();
+}
+
+document.querySelectorAll('.js-save-link').forEach(link => {
+  link.addEventListener('click', () => {
+   saveQuantity(link.dataset.productId);
   })
 });
   
+//keyboard support
+document.querySelectorAll(`.quantity-input`).forEach(input => {
+  input.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+      saveQuantity(input.dataset.productId);
+    }
+  })
+});
