@@ -210,11 +210,11 @@
   margin-bottom: 15px;
 }
 
-input {
+.quantity-input {
   width: 30px;
 }
 
-input,
+.quantity-input,
 .save-quantity-link {
   display:none;
 }
