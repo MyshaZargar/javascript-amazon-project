@@ -2,6 +2,7 @@ import {cart, removeFromCart, updateCartQuantity, updateQuantity, updateDelivery
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utlis/money.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import {renderPaymentSummary} from './paymentSummary.js';
 
 function displayDate (deliveryOption) {
   const today = dayjs();
@@ -106,6 +107,7 @@ export function renderOrderSummary(){
           removeFromCart(productId);
           document.querySelector(`.js-cart-item-${productId}`).remove();
           updateCartQuantity();
+          renderPaymentSummary();
       });
   });
 
@@ -158,6 +160,7 @@ export function renderOrderSummary(){
     const {productId, deliveryOptionId} = option.dataset;
     updateDeliveryOption(productId, deliveryOptionId);
     renderOrderSummary();//re-run all the code above ... to update the page we are generating this html again instead of using dom
+    renderPaymentSummary();
   });
   });
 }
