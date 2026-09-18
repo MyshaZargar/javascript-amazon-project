@@ -7,7 +7,7 @@ import {renderPaymentSummary} from './paymentSummary.js';
 function displayDate (deliveryOption) {
   const today = dayjs();
   const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-  const dateString = deliveryDate.format('dddd, MMMM D');
+  const dateString = deliveryDate.format('MMMM D');
   return dateString;
 }
 
@@ -67,6 +67,8 @@ export function renderOrderSummary(){
     `
   });
 
+  document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+
   function deliveryOptionsHTML (matchingItem, cartItem) {
     let html = '';
     deliveryOptions.forEach(deliveryOption => {
@@ -97,7 +99,7 @@ export function renderOrderSummary(){
     return html;
   }
 
-  document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+  
 
   updateCartQuantity();
 
@@ -105,7 +107,7 @@ export function renderOrderSummary(){
       link.addEventListener('click', () => {
           const productId = link.dataset.productId;
           removeFromCart(productId);
-          document.querySelector(`.js-cart-item-${productId}`).remove();
+          renderOrderSummary();//regenerating html instead of dom 
           updateCartQuantity();
           renderPaymentSummary();
       });
