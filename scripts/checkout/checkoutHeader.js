@@ -5,6 +5,7 @@ export function renderCheckoutHeader() {
     cart.forEach(item => {
         cartQuantity += item.quantity;
     });
+    
     const checkoutHeaderHTML =
     `
     <div class="header-content">

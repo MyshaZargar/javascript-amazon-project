@@ -3,6 +3,7 @@ import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utlis/money.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
+import {renderCheckoutHeader} from './checkoutHeader.js';
 
 function displayDate (deliveryOption) {
   const today = dayjs();
@@ -99,17 +100,13 @@ export function renderOrderSummary(){
     return html;
   }
 
- 
-
-  
-
   document.querySelectorAll('.js-delete-link').forEach((link) => {
       link.addEventListener('click', () => {
           const productId = link.dataset.productId;
           removeFromCart(productId);
           renderOrderSummary();//regenerating html instead of dom 
-          
           renderPaymentSummary();
+          renderCheckoutHeader();
       });
   });
 
