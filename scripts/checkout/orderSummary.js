@@ -1,4 +1,4 @@
-import {cart, removeFromCart, updateCartQuantity, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
+import {cart, removeFromCart, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utlis/money.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
@@ -99,16 +99,16 @@ export function renderOrderSummary(){
     return html;
   }
 
-  
+ 
 
-  updateCartQuantity();
+  
 
   document.querySelectorAll('.js-delete-link').forEach((link) => {
       link.addEventListener('click', () => {
           const productId = link.dataset.productId;
           removeFromCart(productId);
           renderOrderSummary();//regenerating html instead of dom 
-          updateCartQuantity();
+          
           renderPaymentSummary();
       });
   });
