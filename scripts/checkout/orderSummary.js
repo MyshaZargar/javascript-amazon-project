@@ -20,7 +20,9 @@ export function renderOrderSummary(){
     
 
     cartSummaryHTML += `
-     <div class="cart-item-container js-cart-item-${matchingItem.id}">
+     <div class="cart-item-container
+       js-cart-item-container
+       js-cart-item-${matchingItem.id}">
       <div class="delivery-date">
         Delivery date: ${displayDate(deliveryOption)}
       </div>
@@ -36,7 +38,8 @@ export function renderOrderSummary(){
           <div class="product-price">
             $${formatCurrency(matchingItem.priceCents)}
           </div>
-          <div class="product-quantity">
+          <div class="product-quantity
+          js-product-quantity-${matchingItem.id}">
             <span>
               Quantity: <span class="quantity-label js-quantity-label-${matchingItem.id}">${cartItem.quantity}</span>
             </span>
@@ -46,7 +49,8 @@ export function renderOrderSummary(){
             <input class="quantity-input js-quantity-input-${matchingItem.id}" data-product-id="${matchingItem.id}">
             <span class="save-quantity-link link-primary js-save-link"  data-product-id="${matchingItem.id}">Save</span>
 
-            <span class="delete-quantity-link link-primary js-delete-link" data-product-id = ${matchingItem.id}>
+            <span class="delete-quantity-link link-primary js-delete-link
+            js-delete-link-${matchingItem.id}" data-product-id = ${matchingItem.id}>
               Delete
             </span>
           </div>
@@ -105,7 +109,6 @@ export function renderOrderSummary(){
       });
   });
 
-
   document.querySelectorAll('.js-update-link').forEach(link => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
@@ -113,8 +116,6 @@ export function renderOrderSummary(){
       
     })
   })
-
-
 
   function saveQuantity(productId) {
     
@@ -147,7 +148,6 @@ export function renderOrderSummary(){
       }
     })
   });
-
 
   document.querySelectorAll('.js-delivery-option').forEach(option => {
     option.addEventListener('click', () => {

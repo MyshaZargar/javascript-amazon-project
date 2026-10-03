@@ -1,7 +1,10 @@
 export let cart;
 
+loadFromStorage();
+
 export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem('cart'));
+  
   if(!cart){
     cart = [{
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -28,17 +31,17 @@ export function addToCart (productId) {
       matchingItem = item;
     } 
   });
-  let selectQuantity = document.querySelector(`.js-quantity-selector-${productId}`)
+  let selectQuantity = document.querySelector(`.js-quantity-selector-${productId}`);
   // if the item is present, its quanity will be incremented else it will be added with quanity 1
   if (matchingItem){
-    matchingItem.quantity += Number(selectQuantity.value);
+    matchingItem.quantity += Number(selectQuantity?.value || 1);//to avoid putting dom elements into jasmine test
   } else {
     cart.push({
       productId,
       quantity: 1,
       deliveryOptionId: '1'
     });
-  };
+  }
   saveToStorage();
 }
 

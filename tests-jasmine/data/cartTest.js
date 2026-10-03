@@ -1,17 +1,17 @@
-import {cart, addToCart, loadFromStorage} from '../../data/cart.js';
+import {addToCart, cart, loadFromStorage} from '../../data/cart.js';
 
 describe('test suite: addToCart', () => {
 
     it('adds an existing product to the cart', () => {
-        spyOn(localStorage, 'setItem') // now setItem will be replaced with a faked version and we r no longer saving this in our actual setItem
+        spyOn(localStorage, 'setItem'); // now setItem will be replaced with a faked version and we r no longer saving this in our actual setItem
 
         spyOn(localStorage,'getItem').and.callFake(() => {
             return JSON.stringify([{
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
                 quantity: 1,
-                deliveryOptionId: 1
+                deliveryOptionId: '1'
             }]); 
-        })
+        });
         //after mocking local storage we should reload the cart 
         loadFromStorage();
 
