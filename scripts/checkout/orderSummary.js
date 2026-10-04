@@ -5,8 +5,6 @@ import {deliveryOptions, getDeliveryOption, displayDate} from '../../data/delive
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
 
-
-
 export function renderOrderSummary(){
   let cartSummaryHTML = '';
 
@@ -32,10 +30,12 @@ export function renderOrderSummary(){
           src="${matchingItem.image}">
 
         <div class="cart-item-details">
-          <div class="product-name">
+          <div class="product-name 
+          js-product-name-${matchingItem.id}">
             ${matchingItem.name}
           </div>
-          <div class="product-price">
+          <div class="product-price
+          js-product-price-${matchingItem.id}">
             $${formatCurrency(matchingItem.priceCents)}
           </div>
           <div class="product-quantity
