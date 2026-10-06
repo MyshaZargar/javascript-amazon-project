@@ -23,6 +23,15 @@ export function getDeliveryOption(deliveryOptionId) {
     return deliveryOption || deliveryOptions[0];
 }
 
+export function validDeliveryOption(deliveryOptionId){
+  let value = false;
+  deliveryOptions.forEach(option => {
+    if(option.id === deliveryOptionId){
+      value = true;
+    }
+  });
+  return value;
+}
 
 export function displayDate (deliveryOption) {
   const today = dayjs();
